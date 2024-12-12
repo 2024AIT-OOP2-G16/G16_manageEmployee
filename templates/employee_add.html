@@ -5,7 +5,13 @@
     <title>新規従業員追加</title>
 </head>
 <body>
+    
     <h1>新規従業員追加</h1>
+    <h1>{{ title }}</h1>
+    <ul class="breadcrumb">
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li>従業員一覧</li> </ul> <a href="{{ url_for('employee.list') }}">新規従業員追加</a>
+
     <form method="POST" action="{{ url_for('employee.add') }}">
         <h2>従業員情報</h2>
         <label for="first_name">名:</label>
