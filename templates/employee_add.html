@@ -6,7 +6,10 @@
 </head>
 <body>
     <h1>新規従業員追加</h1>
-    <form method="POST" action="{{ url_for('employee.add') }}">
+    <ul class="breadcrumb">
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li><a href="{{ url_for('employee.list') }}">従業員一覧</a></li>
+        <li>新規従業員追加</li>
         <h2>従業員情報</h2>
         <label for="first_name">名:</label>
         <input type="text" id="first_name" name="first_name" required maxlength="10"><br>
