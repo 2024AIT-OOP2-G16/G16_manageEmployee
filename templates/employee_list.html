@@ -17,6 +17,7 @@
                 <th>名前</th>
                 <th>性別</th>
                 <th>生年月日</th>
+                <th>年齢</th>
                 <th>メールアドレス</th>
                 <th>電話番号</th>
                 <th>住所</th>
@@ -37,6 +38,7 @@
                 <td>{{ employee.first_name }} {{ employee.last_name }}</td>
                 <td>{{ employee.gender }}</td>
                 <td>{{ employee.date_of_birth.strftime('%Y-%m-%d') }}</td>
+                <td>{{ employee.age }}</td>
                 <td>{{ employee.email }}</td>
                 <td>{{ employee.phone_number }}</td>
                 <td>{{ employee.address }}</td>
