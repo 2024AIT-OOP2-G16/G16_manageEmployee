@@ -12,6 +12,7 @@ def list():
 
 @employee_bp.route('/add', methods=['GET', 'POST'])
 def add():
+    print("ddddd")
     if request.method == 'POST':
         # Hireレコードを作成
         hire = Hire.create(
