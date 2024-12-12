@@ -1,6 +1,8 @@
 from flask import Flask, render_template
 from models import initialize_database
 from routes import blueprints
+from models import Employee
+from peewee import fn
 
 app = Flask(__name__)
 
@@ -14,7 +16,14 @@ for blueprint in blueprints:
 # ホームページのルート
 @app.route('/')
 def index():
-    return render_template('index.html')
+    
+    query = (Employee
+             .select(Employee.age, fn.AVG(Employee.salary).alias('average_salary'))
+             .group_by(Employee.age))
+    data = [{"age": result.age, "average_salary": result.average_salary} for result in query]
+    for i in data:
+        print(i)
+    return render_template('index.html',data)
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
