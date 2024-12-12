@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>グラフの表示</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='base-style.css') }}"
+    />
+  </head>
+  <body>
+    <h1>年齢別平均給料</h1>
+    <canvas id="myChart" width="400" height="200"></canvas>
+    <script>
+      // Pythonから渡されたデータをJavaScriptに変換
+      const data = {{ data | tojson }};
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: data.age_labels,  // ラベルを配列として渡す
+              datasets: [{
+                  label: '年齢別平均給料',
+                  data: data.avg_salary_data,  // データを配列として渡す
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1
+              }]
+          }
+      });
+    </script>
+  </body>
+</html>
