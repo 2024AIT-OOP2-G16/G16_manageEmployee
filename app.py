@@ -18,7 +18,8 @@ def index():
 
 @app.route('/graph')
 def chart_do():
-    # data = request.json
+    # data = request.json //本番環境ではこれを使う
+    #テスト段階ではこちらを使う
     data = {
         'age_labels': [18, 25, 27, 29, 31],
         'avg_salary_data': [34, 45, 50, 52, 55]

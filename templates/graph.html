@@ -15,9 +15,9 @@
     <canvas id="myChart" width="400" height="200"></canvas>
     <script>
       // Pythonから渡されたデータをJavaScriptに変換
-      let data = {{ data | tojson }};
-      let ctx = document.getElementById('myChart').getContext('2d');
-      let myChart = new Chart(ctx, {
+      const data = {{ data | tojson }};
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const myChart = new Chart(ctx, {
           type: 'line',
           data: {
               labels: data.age_labels,  // ラベルを配列として渡す
