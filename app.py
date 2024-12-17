@@ -14,16 +14,19 @@ for blueprint in blueprints:
     app.register_blueprint(blueprint)
 
 # ホームページのルート
-@app.route('/')
+@app.route('/',methods=['GET', 'POST'])
 def index():
-    
     query = (Employee
              .select(Employee.age, fn.AVG(Employee.salary).alias('average_salary'))
              .group_by(Employee.age))
-    data = [{"age": result.age, "average_salary": result.average_salary} for result in query]
-    for i in data:
-        print(i)
-    return render_template('index.html',data)
+    data = [{"age_labels": result.age, "avg_salary_data": result.average_salary} for result in query]
+
+    if request.method == 'POST':
+        data = request.json  
+        if not data:
+            return ({"error": "JSONデータがありません"})
+    else:
+        return render_template('index.html',data=data)
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
