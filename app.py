@@ -1,6 +1,8 @@
 from flask import Flask, render_template
 from models import initialize_database
 from routes import blueprints
+from models import Employee
+from peewee import fn
 
 app = Flask(__name__)
 
@@ -14,17 +16,17 @@ for blueprint in blueprints:
 # ホームページのルート
 @app.route('/',methods=['GET', 'POST'])
 def index():
+    query = (Employee
+             .select(Employee.age, fn.AVG(Employee.salary).alias('average_salary'))
+             .group_by(Employee.age))
+    data = [{"age_labels": result.age, "avg_salary_data": result.average_salary} for result in query]
+
     if request.method == 'POST':
         data = request.json  
         if not data:
             return ({"error": "JSONデータがありません"})
     else:
-        # テスト段階では固定データを使用
-        data = {
-            "age_labels": [20, 30, 40, 50],
-            "avg_salary_data": [30,35,40,45]
-        }
-    return render_template('index.html',data=data)
+        return render_template('index.html',data=data)
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
