@@ -4,12 +4,50 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>データ一覧</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='base-style.css') }}"
     />
+    
   </head>
   <body>
+    <section class="employee_summary">
+      <h2>今月の従業員別売り上げ</h2>
+      <canvas id="myPieChart"></canvas>
+    </section>
+    <style>
+      #myPieChart {
+        max-width: 400px;
+        max-height: 400px;
+      }
+    </style>
+    <script>
+      // Pythonから渡されたデータをJavaScriptに変換
+      const data = {{ data | tojson }};
+
+      const ctx = document.getElementById('myPieChart').getContext('2d');
+      const myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ["男性", "女性"],
+          datasets: [{
+            backgroundColor: ["#3C00FF", "#BB5179"],
+            data: data.male_female_ratio,
+          }]
+        },
+        options: {
+          responsive: true, // レスポンシブを有効化
+          maintainAspectRatio: true, // アスペクト比を維持
+          plugins: {
+            title: {
+              display: true,
+              text: '男女比率'
+            }
+          }
+        }
+      });
+    </script>
     <h1>index</h1>
     <ul>
       <li><a href="{{ url_for('user.list') }}">ユーザーリスト</a></li>
