@@ -1,6 +1,7 @@
 from peewee import *
 from .db import db
 from models import Hire
+from datetime import datetime
 
 # モデル定義
 class Employee(Model):
@@ -17,6 +18,19 @@ class Employee(Model):
     @property
     def hire(self):
         return self.hire_id
+    
+    @property
+    def age(self):
+        """年齢を計算するプロパティ"""
+        today = datetime.today()
+        age = today.year - self.date_of_birth.year
+
+        # 誕生日がまだ来てない場合は-1
+        if today.month <= self.date_of_birth.month :
+            if today.day < self.date_of_birth.day :
+                age = age - 1
+        return age
+
 
     class Meta:
         database = db  # 使用するデータベースを指定

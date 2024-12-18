@@ -9,7 +9,7 @@
     <h1>{{ title }}</h1>
     <ul class="breadcrumb">
         <li><a href="{{ url_for('index') }}">HOME</a></li>
-        <li><a href="{{ url_for('user.search') }}">検索一覧</a></li>
+        <li><a href="{{ url_for('user.search') }}">ユーザー名検索</a></li>
     </ul>
 
     <form method="get" action="{{ url_for('user.search') }}">
